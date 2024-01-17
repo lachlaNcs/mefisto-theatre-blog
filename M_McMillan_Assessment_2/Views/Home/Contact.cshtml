@@ -1,0 +1,52 @@
+﻿@model M_McMillan_Assessment_2.Models.Message
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center text-danger">Contact us</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-5 fs-4">
+            <p class="text-danger">Contact information: </p>
+            <p><img src="~/Images/geo-alt-fill.svg" style="height: 25px; width: 25px;"/> Glasgow, Scotland</p>
+            <p><img src="~/Images/telephone-outbound-fill.svg" style="height: 25px; width: 25px;" /> +44 1515151515</p>
+            <p><img src="~/Images/envelope-at-fill.svg" style="height: 25px; width: 25px; "/> contactus@mefisto.com</p>
+        </div>
+
+        <div class="col-md-7">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        @Html.TextBoxFor(model => model.FullName, new { @placeholder = "Name", @class = "form-control", @id = "name" })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="row">
+
+
+                    <div class="col-md-6 form-group mb-3">
+                        @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email", @class = "form-control", @id = "email" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                        @Html.TextAreaFor(model => model.Comment, new { @placeholder = "Leave a comment...", @class = "form-control", @id = "comments", @rows = 3 })
+                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <input type="submit" value="Send" class="btn btn-outline-success pull-right" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

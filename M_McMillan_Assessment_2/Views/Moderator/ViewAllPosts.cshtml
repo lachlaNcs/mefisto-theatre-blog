@@ -1,0 +1,94 @@
+﻿@model IEnumerable<M_McMillan_Assessment_2.Models.Post>
+
+@{
+    ViewBag.Title = "All Posts";
+}
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Post?</p> <!-- Change Here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-button" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deletePostLink" class="btn btn-outline-danger">Delete</a> <!-- Change Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>All Posts: </h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New Post", "Create", "Staff", null, htmlAttributes: new { @class = "btn btn-outline-success btn-sm" })
+</p>
+<hr />
+<table class="table table-striped table-responsive table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEdited)
+        </td>
+        <td>
+            <button class="btn btn-sm btn-outline-danger delete-post" data-post-id="@item.PostId" data-toggle="modal">Delete</button> <!-- Change here -->
+            @Html.ActionLink("Edit", "EditPost", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.ActionLink("Back to Dashboard", "Index", null, htmlAttributes: new { @class = "btn btn btn-outline-secondary "})
+<script>
+     $(document).ready(function () {
+     $('.delete-post').on('click', function () { // Change here 
+         var postId = $(this).data('post-id'); // Change here
+         $('#deletePostLink').attr('href', '@Url.Action("DeletePost", "Moderator")/' + postId); // Change here
+         $('#deleteConfirmationModal').modal('show');
+     });
+ });
+</script>

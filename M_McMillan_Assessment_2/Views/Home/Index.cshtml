@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<main>
+
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title" class="text-danger">Mefisto Theatre Company</h1>
+        <hr />
+        <br />
+        <p>
+            Welcome to Mefisto Theatre, where the magic of storytelling comes to life on stage. 
+            Immerse yourself in a world of captivating performances and artistic expression. 
+            Our stage is a canvas for unforgettable moments that will transport you to new realms of emotion and imagination. 
+            Explore the rich tapestry of our performances and stay connected with the heartbeat of Mefisto.
+            We're thrilled to have you here, and we can't wait to share the enchantment of theatre with you. Enjoy the journey!
+        </p>
+    </section>
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+            <h2 id="gettingStartedTitle" class="text-danger">Contact us</h2>
+            <p>
+                Have a question, suggestion, or just want to share your thoughts with us?
+                We'd love to hear from you, feel free to contact us with your messages!
+            </p>
+            <p><a class="btn btn-outline-dark" href=@Url.Action("Contact", "Home")>Contact us</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="librariesTitle">
+            <h2 id="librariesTitle" class="text-danger">Check out our blog!</h2>
+            <p>Explore our blog to stay updated on the latest news and behind-the-scenes stories as well as get involved with the community.</p>
+            <p><a class="btn btn-outline-dark" href=@Url.Action("GetBlogs", "Home")>Blog</a></p>
+        </section>
+
+        <section class="col-md-4">
+            <img src="~/Images/mefisto-logo.png" style="margin-top: -5px;" />
+        </section>
+    </div>
+</main>

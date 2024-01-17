@@ -1,0 +1,96 @@
+﻿@model IEnumerable<M_McMillan_Assessment_2.Models.Post>
+@using M_McMillan_Assessment_2.Models
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "GetBlogs";
+}
+
+@foreach (var item in ViewBag.Categories)
+            {
+                <b>@item.CategoryName | </b>
+            }
+<br />
+<hr />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find Posts by Category: @Html.TextBox("SearchString")
+
+        <input type="submit" value="Search" class="btn btn-outline-primary "  />
+    </p>
+}
+
+@if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Staff"))
+            {
+                @Html.ActionLink("Create Post", "Create", "Staff", null, htmlAttributes: new { @class = "btn btn-outline-secondary mt-2 "})
+            }
+<br />
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEdited)
+        </td>
+        <td style="float: right;">
+            @Html.ActionLink("Details", "Details", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
+            @if (!Request.IsAuthenticated)
+                {
+            @Html.ActionLink("Log in to Comment", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-sm btn-outline-secondary " })
+
+                }
+            @if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Suspended"))
+                {
+                    <p class="text-danger">You are not allowed to make comments.</p>
+                }
+                else
+                {
+                    @Html.ActionLink("Comment", "Comment", "Member", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

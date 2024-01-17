@@ -1,0 +1,85 @@
+﻿@model M_McMillan_Assessment_2.Models.Comment
+
+@{
+    ViewBag.Title = "Delete Comment";
+}
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Comment?</p> <!-- Change Here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-button" data-bs-dismiss="modal">Close</button>
+                <a href="#" id="deleteCommentLink" class="btn btn-outline-danger">Delete</a> <!-- Change Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Are you sure you want to delete this Comment?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Employee.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-outline-danger me-3" />
+    <button class="btn btn-sm btn-outline-danger delete-post" data-post-id="@item.PostId" data-toggle="modal">Delete</button> <!-- Change here -->
+
+    @Html.ActionLink("Back to Comments", "ViewAllComments", null, htmlAttributes: new { @class = "btn btn-outline-secondary" })
+</div>
+    }
+</div>
+
+<script>
+     $(document).ready(function () {
+     $('.delete-post').on('click', function () { // Change here
+         var postId = $(this).data('post-id'); // Change here
+         $('#deletePostLink').attr('href', '@Url.Action("DeletePost", "Moderator")/' + postId); // Change here
+         $('#deleteConfirmationModal').modal('show');
+     });
+ });
+</script>
