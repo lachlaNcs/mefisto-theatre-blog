@@ -14,11 +14,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this Post?</p> <!-- Change Here -->
+                <p>Are you sure you want to delete this Post?</p> 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-button" data-bs-dismiss="modal">Close</button>
-                <a href="#" id="deletePostLink" class="btn btn-outline-danger">Delete</a> <!-- Change Here -->
+                <a href="#" id="deletePostLink" class="btn btn-outline-danger">Delete</a>
             </div>
         </div>
     </div>
@@ -50,6 +50,9 @@
         <th>
             @Html.DisplayNameFor(model => model.DateEdited)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
         <th></th>
     </tr>
 
@@ -72,6 +75,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateEdited)
+        </td>
+        <td>
+            @item.Comments.Count()
         </td>
         <td>
             <button class="btn btn-sm btn-outline-danger delete-post" data-post-id="@item.PostId" data-toggle="modal">Delete</button> <!-- Change here -->

@@ -40,20 +40,10 @@
                         {
                             <li>@Html.ActionLink("My Posts", "Index", "Staff", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("Create a Post", "Create", "Staff", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                         if (User.IsInRole("Moderator"))
                         {
                             <li>@Html.ActionLink("Mod Dashboard", "Index", "Moderator", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
-                        }
-                        if (User.IsInRole("Member"))
-                        {
-                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
-                        }
-                        if (User.IsInRole("Suspended"))
-                        {
-                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                     }
                 </ul>

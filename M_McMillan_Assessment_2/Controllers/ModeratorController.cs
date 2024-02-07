@@ -180,7 +180,11 @@ namespace M_McMillan_Assessment_2.Controllers
         // Action that returns a List of all Posts to the View
         public ActionResult ViewAllPosts()
         {
-            List<Post> posts = db.Posts.Include(p => p.Category).Include(p => p.Employee).ToList();
+            List<Post> posts = db.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Employee)
+                .Include(p => p.Comments)
+                .ToList();
 
             return View(posts);
         }
