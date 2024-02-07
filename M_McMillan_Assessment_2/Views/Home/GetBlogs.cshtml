@@ -28,69 +28,40 @@
 <br />
 <hr />
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
-            Username
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatePosted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateEdited)
-        </th>
-        <th></th>
-    </tr>
+<div class="container d-flex flex-column align-items-center">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3 w-50">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="card-text">Posted by @Html.DisplayFor(modelItem => item.Employee.FirstName) </p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text"><small class="text-muted">Posted on @Html.DisplayFor(modelItem => item.DatePosted)</small></p>
+                    @if (item.DateEdited != null)
+                    {
+                        <p class="card-text"><small class="text-muted">Edited on @Html.DisplayFor(modelItem => item.DateEdited)</small></p>
+                    }
+                    <div style="float: right;">
+                        @Html.ActionLink("Details", "Details", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatePosted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateEdited)
-        </td>
-        <td style="float: right;">
-            @Html.ActionLink("Details", "Details", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
-            @if (!Request.IsAuthenticated)
-                {
-            @Html.ActionLink("Log in to Comment", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-sm btn-outline-secondary " })
+                        @if (!Request.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Log in to Comment", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-sm btn-outline-secondary " })
+                        }
 
-                }
-            @if (Request.IsAuthenticated)
-            {
-                if (User.IsInRole("Suspended"))
-                {
-                    <p class="text-danger">You are not allowed to make comments.</p>
-                }
-                else
-                {
-                    @Html.ActionLink("Comment", "Comment", "Member", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
-                }
-            }
-        </td>
-    </tr>
-}
-
-</table>
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Suspended"))
+                            {
+                                <p class="text-danger">You are not allowed to make comments.</p>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Comment", "Comment", "Member", new { id = item.PostId }, htmlAttributes: new { @class = "btn btn-sm btn-outline-secondary" })
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+    }
+</div>
